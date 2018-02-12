@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="textFilter:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/textFilter_jar</output-path>
+    <root id="archive" name="textFilter.jar">
+      <element id="module-output" name="textFilter" />
+    </root>
+  </artifact>
+</component>
