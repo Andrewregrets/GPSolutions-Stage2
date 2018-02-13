@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class StringFilterTest {
 
     @Test
-    void canBeUsedInMatch() {
+    void shouldBeUsedInMatch() {
         assertEquals(true, StringFilter.shouldBeUsedInMatch("^ab.+"));
         assertEquals(true, StringFilter.shouldBeUsedInMatch(new String[]{"^ab.+"}));
         assertEquals(false, StringFilter.shouldBeUsedInMatch(new String[]{"^ab.", "+"}));
@@ -26,6 +26,8 @@ class StringFilterTest {
         test3();
         test4();
         testAsterisk();
+
+        testFindOneOfSeveralWords();
     }
 
     private void test1() {
@@ -96,6 +98,26 @@ class StringFilterTest {
                 "ab *\tac ad;\n" +
                 "\n";
         String expectedOutput = "";
+
+        testGetString(args, input, expectedOutput);
+    }
+
+    private void testFindOneOfSeveralWords() {
+        String[] args = new String[]{"abcd*xc-af*",",.aaa_aab"};
+
+        String input = "abcd;\n" +
+                "xc-adgb;\n" +
+                "bcd af,,.abc;\n" +
+                "ghij -aaa_aab)acdf;\n" +
+                "ghij -0afabcd acdf;\n" +
+                "xc_af _aaa_aab ad;\n" +
+                "aaa_aab ac ad;\n" +
+                "\n";
+        String expectedOutput = "abcd;\n" +
+                "xc-adgb;\n" +
+                "bcd af,,.abc;\n" +
+                "ghij -aaa_aab)acdf;\n" +
+                "aaa_aab ac ad;\n";
 
         testGetString(args, input, expectedOutput);
     }

@@ -9,7 +9,7 @@ import textfilter.matcher.*;
 
 class LineVerifier {
     static boolean satisfies(Matcher matcher, String strToCheck, String... references) {
-        String[] words = strToCheck.split("\\W");
+        String[] words = strToCheck.split("\\W+");
         for (String word : words)
             for (String reference : references)
                 if (matcher.matches(word, reference))
@@ -48,8 +48,12 @@ public class StringFilter {
 
         if (StringFilter.shouldBeUsedInMatch(args))
             matcher = new MatchesMatcher();
-        else
+        else {
             matcher = new EqualsMatcher();
+            args = String.join(" ", args).split("\\W+");
+            if (args.length < 1)
+                return "";
+        }
 
         StringBuilder resultStringBuilder = new StringBuilder();
 
